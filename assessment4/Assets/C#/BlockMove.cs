@@ -27,7 +27,7 @@ public class BlockMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             transform.position += new Vector3(0, +1, 0);
         }
-        if (Time.time - previousTime > fallingTime) 
+        if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10: fallingTime))
         {
             transform.position += new Vector3(0, +1, 0);
             previousTime = Time.time; 
