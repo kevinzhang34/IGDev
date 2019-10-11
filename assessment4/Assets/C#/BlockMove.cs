@@ -42,8 +42,12 @@ public class BlockMove : MonoBehaviour
         if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
             transform.position += new Vector3(0, -1, 0);
-             if (!checkBoundary()) 
-                 transform.position -= new Vector3(0, -1, 0);
+             if (!checkBoundary())
+            {
+                transform.position -= new Vector3(0, -1, 0);
+                this.enabled = false;
+                FindObjectOfType<Spawner>().NewSpawn();
+            }
             previousTime = Time.time;
         }
         }

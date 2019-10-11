@@ -8,10 +8,10 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        newSpawn();
+        NewSpawn();
     }
 
-    public void newSpawn() 
+    public void NewSpawn() 
     {
         Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
      }
