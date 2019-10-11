@@ -41,10 +41,11 @@ public class BlockMove : MonoBehaviour
         //where the block floating up to the top 
         if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
-            transform.position += new Vector3(0, +1, 0);
-            if (!checkBoundary())
-                transform.position -= new Vector3(0, +1, 0);
+            transform.position += new Vector3(0, -1, 0);
+             if (!checkBoundary()) 
+                 transform.position -= new Vector3(0, -1, 0);
             previousTime = Time.time;
+        }
         }
 
         bool checkBoundary()
@@ -53,7 +54,6 @@ public class BlockMove : MonoBehaviour
             {
                 int roundedX = Mathf.RoundToInt(children.transform.position.x);
                 int roundedY = Mathf.RoundToInt(children.transform.position.y);
-
                 if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
                 {
                     return false;
@@ -63,4 +63,3 @@ public class BlockMove : MonoBehaviour
         }
 
     }
-}
