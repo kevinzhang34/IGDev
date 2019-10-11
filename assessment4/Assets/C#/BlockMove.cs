@@ -9,6 +9,7 @@ public class BlockMove : MonoBehaviour
     public static int width = 10;
     public Vector3 rPoint;
     private float previousTime;
+    private static Transform[,] grid = new Transform[width, height];
     public float fallingTime = 0.7f;
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,7 @@ public class BlockMove : MonoBehaviour
              if (!checkBoundary())
             {
                 transform.position -= new Vector3(0, -1, 0);
+                addtogrid();
                 this.enabled = false;
                 FindObjectOfType<Spawner>().NewSpawn();
             }
@@ -52,16 +54,30 @@ public class BlockMove : MonoBehaviour
         }
         }
 
-        bool checkBoundary()
+        
+        void addtogrid() 
+        {
+            foreach (Transform children in transform) 
+            {
+                int roundedX = Mathf.RoundToInt(children.transform.position.x);
+                int roundedY = Mathf.RoundToInt(children.transform.position.y);
+            grid[roundedX, roundedY] = children;
+            }
+        }
+
+    bool checkBoundary()
         {
             foreach (Transform children in transform)
             {
+
                 int roundedX = Mathf.RoundToInt(children.transform.position.x);
                 int roundedY = Mathf.RoundToInt(children.transform.position.y);
                 if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
                 {
                     return false;
                 }
+            if (grid[roundedX, roundedY] != null)
+                return false;
             }
             return true;
         }
