@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BlockMove : MonoBehaviour
 {
+
     public static int height = 20;
     public static int width = 10;
+    public Vector3 rPoint;
     private float previousTime;
     public float fallingTime = 0.7f;
     // Start is called before the first frame update
@@ -29,8 +31,15 @@ public class BlockMove : MonoBehaviour
             if (!checkBoundary())
                 transform.position -= new Vector3(-1, 0, 0);
         }
+        else if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), 90);
+            if (!checkBoundary())
+                transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), -90);
+          }
+
         //where the block floating up to the top 
-        if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallingTime / 10 : fallingTime))
+        if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
             transform.position += new Vector3(0, +1, 0);
             if (!checkBoundary())
