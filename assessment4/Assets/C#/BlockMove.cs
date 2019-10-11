@@ -19,19 +19,22 @@ public class BlockMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.position += new Vector3(+1, 0, 0);
+            transform.position += new Vector3(1, 0, 0);
+            if (!checkBoundary())
+                transform.position -= new Vector3(1, 0, 0);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.position += new Vector3(-1, 0, 0);
+            if (!checkBoundary())
+                transform.position -= new Vector3(-1, 0, 0);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        //where the block floating up to the top 
+        if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallingTime / 10 : fallingTime))
         {
             transform.position += new Vector3(0, +1, 0);
-        }
-        if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
-        {
-            transform.position += new Vector3(0, +1, 0);
+            if (!checkBoundary())
+                transform.position -= new Vector3(0, +1, 0);
             previousTime = Time.time;
         }
 
