@@ -42,11 +42,12 @@ public class BlockMove : MonoBehaviour
         //where the block floating up to the top 
         if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
-            transform.position += new Vector3(0, -1, 0);
+            transform.position += new Vector3(0, +1, 0);
              if (!checkBoundary())
             {
-                transform.position -= new Vector3(0, -1, 0);
-                addtogrid();
+                transform.position -= new Vector3(0, +1, 0);
+                AddToGrid();
+                CheckLines();
                 this.enabled = false;
                 FindObjectOfType<Spawner>().NewSpawn();
             }
@@ -54,8 +55,54 @@ public class BlockMove : MonoBehaviour
         }
         }
 
-        
-        void addtogrid() 
+        void CheckLines() 
+        { 
+        for (int i = height - 1; i >= 0; i--) 
+        {
+            if (HasLine(i))
+            {
+                CleanLine(i);
+                RowDown(i);
+             }
+        }
+    }
+
+    bool HasLine(int i) 
+    {
+    for (int j =0; j < width; j++) 
+    {
+            if (grid[j, i] == null)
+                return false;
+    }
+        return true;
+    }
+
+    void RowDown(int i) 
+    {
+      for (int y = i; y < height; y++) 
+      {
+       for(int j = 0; j < width; j++)
+       {
+       if(grid[j,y] != null)
+        {
+           grid[j, y - 1] = grid[j, y];
+           grid[j, y] = null;
+                    grid[j, y - 1].transform.position -= new Vector3(-0, 1, 1);
+
+                }
+            }
+        }
+    }
+
+    void CleanLine(int i)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            Destroy(grid[j, i].gameObject);
+            grid[j, i] = null;
+        }
+    }
+    void AddToGrid() 
         {
             foreach (Transform children in transform) 
             {
