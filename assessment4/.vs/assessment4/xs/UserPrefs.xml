@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{24F29060-D3D4-1F8A-E49C-4A85811A37F2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/C#/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/C#/BlockMove.cs">
     <Files>
-      <File FileName="Assets/C#/BlockMove.cs" Line="1" Column="1" />
-      <File FileName="Assets/C#/Spawner.cs" Line="16" Column="9" />
+      <File FileName="Assets/C#/BlockMove.cs" Line="16" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
