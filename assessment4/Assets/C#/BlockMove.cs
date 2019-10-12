@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlockMove : MonoBehaviour
 {
-
     public AudioSource cleanSf;
     public AudioSource clickSf;
     public AudioSource rotateSf;
@@ -18,18 +18,21 @@ public class BlockMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cleanSf = GetComponent<AudioSource>();
+      
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             clickSf.Play();
             transform.position += new Vector3(1, 0, 0);
             if (!checkBoundary())
                 transform.position -= new Vector3(1, 0, 0);
+           
         }
          else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -61,8 +64,8 @@ public class BlockMove : MonoBehaviour
             previousTime = Time.time;
         }
         }
-
-        void CheckLines()
+        
+    void CheckLines()
     {
         for (int i = height - 1; i >= 0; i--)
         {
@@ -108,8 +111,10 @@ public class BlockMove : MonoBehaviour
         {
             Destroy(grid[j, i].gameObject);
             grid[j, i] = null;
+          
         }
     }
+
     void AddToGrid() 
         {
             foreach (Transform children in transform) 
@@ -120,23 +125,23 @@ public class BlockMove : MonoBehaviour
             stackSf.Play();
             }
         }
-    void checkGameover() 
-    {
-        for (int j = 0; j < width; j++)
-        {
-            // Check to see if there are any blocks in the highest row
-            if (grid[height - 1,j] != null)
-            {
-                // If there are blocks at the top, the game is over
-                GameOver();
-            }
-        }
-    }
+    //void checkGameover() 
+    //{
+    //    for (int j = 0; j < width; j++)
+    //    {
+    //        // Check to see if there are any blocks in the highest row
+    //        if (grid[height - 1,j] != null)
+    //        {
+    //            // If there are blocks at the top, the game is over
+    //            GameOver();
+    //        }
+    //    }
+    //}
 
-    public void GameOver()
-    {
-        Debug.Log("GameOver");
-    }
+    //public void GameOver()
+    //{
+    //    Debug.Log("GameOver");
+    //}
 
     bool checkBoundary()
         {
@@ -154,5 +159,6 @@ public class BlockMove : MonoBehaviour
             }
             return true;
         }
+   
 
-    }
+}
