@@ -5,6 +5,9 @@ using UnityEngine;
 public class BlockMove : MonoBehaviour
 {
 
+    public AudioSource cleanSf;
+    public AudioSource clickSf;
+    public AudioSource rotateSf;
     public static int height = 20;
     public static int width = 10;
     public Vector3 rPoint;
@@ -14,7 +17,7 @@ public class BlockMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        cleanSf = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -22,18 +25,21 @@ public class BlockMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            clickSf.Play();
             transform.position += new Vector3(1, 0, 0);
             if (!checkBoundary())
                 transform.position -= new Vector3(1, 0, 0);
         }
          else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            clickSf.Play();
             transform.position += new Vector3(-1, 0, 0);
             if (!checkBoundary())
                 transform.position -= new Vector3(-1, 0, 0);
         }
         else if (Input.GetKeyDown(KeyCode.Space)) 
         {
+            rotateSf.Play();
             transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), 90);
             if (!checkBoundary())
                 transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), -90);
@@ -62,6 +68,7 @@ public class BlockMove : MonoBehaviour
             if (HasLine(i))
             {
                 CleanLine(i);
+                cleanSf.Play();
                 RowDown(i);
             }
         }
