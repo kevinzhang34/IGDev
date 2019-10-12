@@ -8,6 +8,7 @@ public class BlockMove : MonoBehaviour
     public AudioSource cleanSf;
     public AudioSource clickSf;
     public AudioSource rotateSf;
+    public AudioSource stackSf;
     public static int height = 20;
     public static int width = 10;
     public Vector3 rPoint;
@@ -116,8 +117,26 @@ public class BlockMove : MonoBehaviour
                 int roundedX = Mathf.RoundToInt(children.transform.position.x);
                 int roundedY = Mathf.RoundToInt(children.transform.position.y);
             grid[roundedX, roundedY] = children;
+            stackSf.Play();
             }
         }
+    void checkGameover() 
+    {
+        for (int j = 0; j < width; j++)
+        {
+            // Check to see if there are any blocks in the highest row
+            if (grid[height - 1,j] != null)
+            {
+                // If there are blocks at the top, the game is over
+                GameOver();
+            }
+        }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("GameOver");
+    }
 
     bool checkBoundary()
         {
