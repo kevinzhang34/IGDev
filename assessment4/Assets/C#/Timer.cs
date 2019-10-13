@@ -19,6 +19,5 @@ public class Timer : MonoBehaviour
         counterText.text = "Scores:" + seconds.ToString("0000000");
       }
 
-    //minutes.ToString("00") + ":" + 
     }
 

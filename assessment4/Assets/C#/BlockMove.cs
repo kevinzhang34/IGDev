@@ -15,17 +15,22 @@ public class BlockMove : MonoBehaviour
     private float previousTime;
     private static Transform[,] grid = new Transform[width, height];
     public float fallingTime = 0.7f;
+
     // Start is called before the first frame update
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame
+   
     void Update()
     {
-
-
+        if (Input.GetKeyDown(KeyCode.C))
+         {
+           
+        }
+        //check user input and move block to right
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             clickSf.Play();
@@ -34,6 +39,7 @@ public class BlockMove : MonoBehaviour
                 transform.position -= new Vector3(1, 0, 0);
            
         }
+        // check user input and move block to left
          else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             clickSf.Play();
@@ -41,6 +47,7 @@ public class BlockMove : MonoBehaviour
             if (!checkBoundary())
                 transform.position -= new Vector3(-1, 0, 0);
         }
+        //rotate the block 90 degree
         else if (Input.GetKeyDown(KeyCode.Space)) 
         {
             rotateSf.Play();
@@ -49,13 +56,15 @@ public class BlockMove : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), -90);
           }
 
-        //where the block floating up to the top 
+        //where the block faliing down to the bottom 
+        //if down key preeed falling time devide by 10 othewise reture full time
         if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
-            transform.position += new Vector3(0, -1, 0);
+            clickSf.Play();
+            transform.position += new Vector3(0, +1, 0);
              if (!checkBoundary())
             {
-                transform.position -= new Vector3(0, -1, 0);
+                transform.position -= new Vector3(0, +1, 0);
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
@@ -77,7 +86,7 @@ public class BlockMove : MonoBehaviour
             }
         }
     }
-
+    // check and loop all the line see if it is null
     bool HasLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -88,7 +97,7 @@ public class BlockMove : MonoBehaviour
 
         return true;
     }
-
+    //when line is clean the block will drop down by 1 y.
     void RowDown(int i)
     {
         for (int y = i; y < height; y++)
@@ -104,7 +113,7 @@ public class BlockMove : MonoBehaviour
             }
         }
     }
-
+    // delete all the element of the line. 
     void CleanLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -114,7 +123,7 @@ public class BlockMove : MonoBehaviour
           
         }
     }
-
+    // add existing block the the grid. 
     void AddToGrid() 
         {
             foreach (Transform children in transform) 
@@ -125,24 +134,7 @@ public class BlockMove : MonoBehaviour
             stackSf.Play();
             }
         }
-    //void checkGameover() 
-    //{
-    //    for (int j = 0; j < width; j++)
-    //    {
-    //        // Check to see if there are any blocks in the highest row
-    //        if (grid[height - 1,j] != null)
-    //        {
-    //            // If there are blocks at the top, the game is over
-    //            GameOver();
-    //        }
-    //    }
-    //}
-
-    //public void GameOver()
-    //{
-    //    Debug.Log("GameOver");
-    //}
-
+  // check every block position if inside the grid, if doesn't return false,otherwise ture.
     bool checkBoundary()
         {
             foreach (Transform children in transform)
@@ -154,11 +146,10 @@ public class BlockMove : MonoBehaviour
                 {
                     return false;
                 }
+                // check if the block is already been taken by other block.
             if (grid[roundedX, roundedY] != null)
                 return false;
             }
             return true;
         }
-   
-
 }

@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\C#\BlockMove.cs" />
+    <Compile Include="Assets\C#\Change.cs" />
     <Compile Include="Assets\C#\Exit.cs" />
     <Compile Include="Assets\C#\LoadScene.cs" />
     <Compile Include="Assets\C#\Spawner.cs" />
