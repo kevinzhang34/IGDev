@@ -56,15 +56,15 @@ public class BlockMove : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rPoint), new Vector3(0, 0, 1), -90);
           }
 
-        //where the block faliing down to the bottom 
+        //where the block falling down to the buttom 
         //if down key preeed falling time devide by 10 othewise reture full time
         if (Time.time - previousTime > (Input.GetKey(KeyCode.UpArrow) ? fallingTime / 10 : fallingTime))
         {
             clickSf.Play();
-            transform.position += new Vector3(0, +1, 0);
+            transform.position += new Vector3(0, -1, 0);
              if (!checkBoundary())
             {
-                transform.position -= new Vector3(0, +1, 0);
+                transform.position -= new Vector3(0, -1, 0);
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
@@ -113,7 +113,7 @@ public class BlockMove : MonoBehaviour
             }
         }
     }
-    // delete all the element of the line. 
+     //delete all the element of the line. 
     void CleanLine(int i)
     {
         for (int j = 0; j < width; j++)
